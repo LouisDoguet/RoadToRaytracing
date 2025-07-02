@@ -1,15 +1,38 @@
 #include <iostream>
 #include "color.h"
-#include "simple_ray.h"
+#include "sphere.h"
 
 /* COMPILE :
 g++ -Icommon -Isrc/ray  main.cpp common/color.cpp src/ray/simple_ray.cpp -o output/simple_ray
 */
 
+double hit_shpere(const point3& center, double radius, const ray& r) {
+
+    vec3 oc = center - r.origin();
+    double a = r.direction().length_squared();
+    double h = dot(r.direction(), oc);
+    double c = oc.length_squared() - radius*radius;
+    double discr = h*h - a*c;
+
+    if (discr < 0){
+        return -1.0;
+    } else {
+        return (h - std::sqrt(discr) ) / a;
+    }
+    return (discr>=0.0);
+}
+
 color ray_color(const ray& r) {
+    double t = hit_shpere(point3(0.0,0.0,-1.0), 0.5, r);
     vec3 unit_direction = unit_vector(r.direction());
+    if (t > 0.0){
+        vec3 N = unit_vector( r.at(t) - vec3(0.0,0.0,-1.0) );
+        double dir = VEC_3::dot(vec3(0,0,1), N);
+        return dir * color(1,1,1);
+    }
+
     auto a = 0.5*(unit_direction.x() + 1.0);
-    return (1.0-a)*color(1.0, 1.0, 1.0) + a*color(0.1, 0.5, 0.9);
+    return (1.0-a)*color(1.0, 1.0, 1.0) + a*color(0.5, 0.7, 0.9);
 }
 
 void generate_rayimage(std::ostream& out) {
@@ -30,7 +53,7 @@ void generate_rayimage(std::ostream& out) {
 
     // Camera 
 
-    auto focal_length = 1.0; // Distance between cam and viewport
+    auto focal_length = 1; // Distance between cam and viewport
     auto camera_center = point3(0,0,0);
 
     // Vector defining the horizontal|vertical side of viewport
@@ -45,7 +68,7 @@ void generate_rayimage(std::ostream& out) {
 
     // From cam to first pixel of viewport
 
-    vec3 viewport_upper_left = camera_center + vec3(0, 0, focal_length) - viewport_u/2 - viewport_v/2;
+    vec3 viewport_upper_left = camera_center - vec3(0, 0, focal_length) - viewport_u/2 - viewport_v/2;
     vec3 pixel00_loc = viewport_upper_left + 0.5 * (pixel_du + pixel_dv);
 
 

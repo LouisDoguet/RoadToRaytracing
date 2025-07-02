@@ -1,10 +1,7 @@
 #include <iostream>
-#include "color.h"
-#include "ray.h"
-#include "gradient.h"
+#include "sphere.h"
 
 int main() {
-    
-    GRADIENT_H::generate_gradient(std::cout);
-    return 1;
+    SIMPLE_RAY::generate_rayimage(std::cout);
+    return -1;
 }

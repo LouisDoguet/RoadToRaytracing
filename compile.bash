@@ -8,15 +8,21 @@ SETUP="$1"
 INCLUDES=(-Icommon)
 SOURCES=(main.cpp common/color.cpp)
 
-if [[ "$SETUP" == "GRADIENT" ]]; then
+if [[ "$SETUP" == "SPHERE" ]]; then
+    INCLUDES+=(-Isrc/sphere)
+    SOURCES+=(src/sphere/sphere.cpp)
+    EXE_NAME="sphere"
+    echo "[*] Building sphere module."
+
+elif [[ "$SETUP" == "GRADIENT" ]]; then
     INCLUDES+=(-Isrc/gradient)
     SOURCES+=(src/gradient/gradient.cpp)
     EXE_NAME="gradient"
     echo "[*] Building gradient module."
 
 elif [[ "$SETUP" == "SIMPLE_RAY" ]]; then
-    INCLUDES+=(-Isrc/ray)
-    SOURCES+=(src/ray/simple_ray.cpp)
+    INCLUDES+=(-Isrc/simple_ray)
+    SOURCES+=(src/simple_ray/simple_ray.cpp)
     EXE_NAME="simple_ray"
     echo "[*] Building simple ray module."
 else
