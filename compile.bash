@@ -25,6 +25,17 @@ elif [[ "$SETUP" == "SIMPLE_RAY" ]]; then
     SOURCES+=(src/simple_ray/simple_ray.cpp)
     EXE_NAME="simple_ray"
     echo "[*] Building simple ray module."
+
+elif [[ "$SETUP" == "GROUND" ]]; then
+    INCLUDES+=(-Isrc/ground)
+    SOURCES+=(src/ground/ground.cpp)
+    EXE_NAME="ground"
+    echo "[*] Building ground module."
+
+elif [[ "$SETUP" == "CAMERA" ]]; then
+    EXE_NAME="camera"
+    echo "[*] Building camera module."
+
 else
     echo "[!] Building error : wrong setup '$SETUP'"
 fi

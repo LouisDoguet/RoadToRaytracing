@@ -1,5 +1,5 @@
-#ifndef SIMPLE_RAY
-#define SIMPLE_RAY
+#ifndef SRC_SPHERE_H
+#define SRC_SPHERE_H
 
 #include "ray.h"
 #include "color.h"
