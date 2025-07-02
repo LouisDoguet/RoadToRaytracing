@@ -1,11 +1,10 @@
 #include <iostream>
 #include "color.h"
 #include "ray.h"
-#include "simple_ray.h"
+#include "gradient.h"
 
 int main() {
     
-    generate_rayimage(std::cout);
-    
+    GRADIENT_H::generate_gradient(std::cout);
     return 1;
 }
